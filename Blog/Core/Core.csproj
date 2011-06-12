@@ -8,8 +8,8 @@
     <ProjectGuid>{D7827FA1-C39B-47F3-9E62-D10177A6C4A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core</RootNamespace>
-    <AssemblyName>Core</AssemblyName>
+    <RootNamespace>Blog.Core</RootNamespace>
+    <AssemblyName>Blog.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
