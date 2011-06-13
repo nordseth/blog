@@ -1,0 +1,12 @@
+﻿@model IEnumerable<MenuViewModel>
+@{
+    Layout = null;
+}
+<nav>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li><a href="@item.Url">@item.Title</a></li>
+        }
+    </ul>
+</nav>

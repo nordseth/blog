@@ -1,36 +1,82 @@
-﻿<!doctype html>
+﻿@{
+    ViewBag.Message = TempData["Message"] as string;
+    var blogConfig = ViewBag.BlogConfig as Blog.Web.ViewModels.BlogConfigViewModel;
+    if (blogConfig == null)
+    {
+        throw new InvalidOperationException("Couldn't find blog config");
+    }
+}
+<!doctype html>
 <html lang="en" class="no-js">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>@ViewBag.Title</title>
-    <meta name="description" content="@ViewBag.Description" />
-    <meta name="author" content="@ViewBag.Author" />
+    <title>
+        @if (ViewBag.Title != null)
+        { <text> @ViewBag.Title - </text> }@blogConfig.Title
+    </title>
+    <meta name="description" content="@blogConfig.MetaDescription" />
+    <meta name="author" content="@blogConfig.MetaKeywords" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")?v=1" />
-    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")"></script>
-</head>
+    @*    <link rel="stylesheet" type="text/css" href="@Url.ActionLinkWithArray("Merge", "Css", new { files = new[] { "ResetCss.css", "custom/" + blogConfig.CustomCss + ".settings.less.css", "base.less.css", "custom/" + blogConfig.CustomCss + ".less.css" } })">
+*@
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/Site.css")?v=1" />
+    @RenderSection("Style", false)
+    <script src="@Url.Content("~/Content/js/modernizr-1.7.min.js")"></script>
+    @*	<link id="Rsd" rel="EditURI" type="application/rsd+xml" title="RSD" href="@Url.Action("Rsd", "Syndication")" />
+    <link id="AtomLink" title="RSS" type="application/rss+xml" rel="alternate" href="@Url.Action("Rss", "Syndication")" />
+*@</head>
 <body>
-    @RenderBody()
+    <div id="header-container">
+        <header class="wrapper">
+            <div id="title">
+                <div id="logoimage">
+                    <a href="@Url.RouteUrl("Default")"></a>
+                </div>
+                <h1>
+                    <a href="@Url.RouteUrl("Default")">@blogConfig.Title</a></h1>
+            </div>
+            @{Html.RenderAction("Menu", "Menu");}
+        </header>
+    </div>
+    <div id="main" class="wrapper">
+        @if (IsSectionDefined("Side"))
+        {
+            <aside>@RenderSection("Side")
+            </aside>
+        }
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        { 
+            <div class="message">@ViewBag.Message</div>
+        }
+        @RenderBody()
+    </div>
+    <div id="footer-container">
+        <footer class="wrapper">
+            <h3>
+            </h3>
+        </footer>
+    </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-    <script>        !window.jQuery && document.write(unescape('%3Cscript src="@Url.Content("~/Scripts/jquery-1.6.1.min.js")"%3E%3C/script%3E'))</script>
-    <script src="@Url.Content("~/Scripts/script.js")"></script>
+    <script>        !window.jQuery && document.write(unescape('%3Cscript src="@Url.Content("~/Content/js/jquery-1.6.1.min.js")"%3E%3C/script%3E'))</script>
+    <script src="@Url.Content("~/Content/js/script.js")"></script>
     <!--[if lt IE 7 ]>
 	<script src="js/libs/dd_belatedpng.js"></script>
 	<script> DD_belatedPNG.fix('img, .png_bg');</script>
 	<![endif]-->
-    @if (ViewBag.AnalyticsId != null)
+    @if (blogConfig.AnalyticsId != null)
     {
-    <script>
-        var _gaq = [['_setAccount', '@ViewBag.AnalyticsId'], ['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
-        (function (d, t) {
-            var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.async = 1;
-            g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g, s)
-        } (document, 'script'));
+        <script>
+            var _gaq = [['_setAccount', '@ViewBag.AnalyticsId'], ['_trackPageview']]; // Change UA-XXXXX-X to be your site's ID
+            (function (d, t) {
+                var g = d.createElement(t), s = d.getElementsByTagName(t)[0]; g.async = 1;
+                g.src = ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js';
+                s.parentNode.insertBefore(g, s)
+            } (document, 'script'));
 	</script>
     }
+    @RenderSection("Script", false)
 </body>
 </html>

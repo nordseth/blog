@@ -47,17 +47,71 @@
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AsyncCtpLibrary">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\AsyncCtpLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    <Reference Include="Esent.Interop">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Esent.Interop.dll</HintPath>
     </Reference>
     <Reference Include="FubuCore">
       <HintPath>..\packages\FubuCore.0.9.1.21\lib\FubuCore.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.NRefactory">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="MissingBitsFromClientProfile">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\MissingBitsFromClientProfile.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Embedded">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Raven.Client.Embedded.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Database">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Raven.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Http">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Raven.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Json">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Raven.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Munin">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Raven.Munin.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Storage.Esent">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Raven.Storage.Esent.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Storage.Managed">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Raven.Storage.Managed.dll</HintPath>
+    </Reference>
+    <Reference Include="Spatial.Net">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Spatial.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="SpellChecker.Net">
+      <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\SpellChecker.Net.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
@@ -73,7 +127,6 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xml.Linq" />
@@ -93,7 +146,22 @@
     <Compile Include="..\AssemblyVersionInfo.cs">
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="App\AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="App\AutoMapper\AutoMapperExtensions.cs" />
+    <Compile Include="App\AutoMapper\Profiles\BlogConfigMapperProfile.cs" />
+    <Compile Include="App\DependencyResolution\CustomControllerActivator.cs" />
+    <Compile Include="App\DependencyResolution\CustomControllerFactory.cs" />
+    <Compile Include="App\Filters\RavenActionFilterAttribute.cs" />
+    <Compile Include="App\Raven\DocumentStoreHolder.cs" />
+    <Compile Include="App\RouteConfigurator.cs" />
+    <Compile Include="App\Start\Log4Net.cs" />
+    <Compile Include="App\Start\Log4NetAdapter.cs" />
     <Compile Include="App\Start\StructuremapMvc.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\RootController.cs" />
     <Compile Include="App\DependencyResolution\IoC.cs" />
     <Compile Include="App\DependencyResolution\SmDependencyResolver.cs" />
@@ -101,6 +169,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BlogConfigViewModel.cs" />
+    <Compile Include="ViewModels\MenuViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-touch-icon-114x114-precomposed.png" />
@@ -108,49 +178,76 @@
     <Content Include="apple-touch-icon-72x72-precomposed.png" />
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
-    <Content Include="Content\style.css" />
+    <Content Include="Content\css\Site.css" />
     <Content Include="crossdomain.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\dd_belatedpng.js" />
-    <Content Include="Scripts\jquery-1.6.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.1.js" />
-    <Content Include="Scripts\jquery-1.6.1.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\modernizr-1.7.js" />
-    <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Scripts\script.js" />
+    <Content Include="Content\js\dd_belatedpng.js" />
+    <Content Include="Content\js\jquery-1.6.1-vsdoc.js" />
+    <Content Include="Content\js\jquery-1.6.1.js" />
+    <Content Include="Content\js\jquery-1.6.1.min.js" />
+    <Content Include="Content\js\jquery.validate-vsdoc.js" />
+    <Content Include="Content\js\jquery.validate.js" />
+    <Content Include="Content\js\jquery.validate.min.js" />
+    <Content Include="Content\js\modernizr-1.7.js" />
+    <Content Include="Content\js\modernizr-1.7.min.js" />
+    <Content Include="Content\js\script.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Content\js\jquery.unobtrusive-ajax.js" />
+    <Content Include="Content\js\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Content\js\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\js\jquery.validate.unobtrusive.min.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
+    <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
+    <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />
+    <None Include="_bin_deployableAssemblies\WebMatrix.Data.xml" />
+    <None Include="_bin_deployableAssemblies\WebMatrix.Data.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Razor.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Deployment.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.WebPages.Administration.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.Razor.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.Razor.dll" />
+    <None Include="_bin_deployableAssemblies\System.Web.Helpers.xml" />
+    <None Include="_bin_deployableAssemblies\System.Web.Helpers.dll" />
+    <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />
+    <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
+    <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="log4net.config" />
     <None Include="packages.config" />
+    <Content Include="Views\Menu\Menu.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\_Layout.cshtml" />
+    <Content Include="Views\Admin\Config.cshtml" />
+    <Content Include="Views\Admin\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Root\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\404.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{D7827FA1-C39B-47F3-9E62-D10177A6C4A9}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{41B2DB49-90B1-45F2-9266-1D584F857C8A}</Project>
+      <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

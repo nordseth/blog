@@ -1,9 +1,10 @@
 using System.Web.Mvc;
 using StructureMap;
+using Blog.Web.App.DependencyResolution;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(Web.App_Start.StructuremapMvc), "Start")]
+[assembly: WebActivator.PreApplicationStartMethod(typeof(Blog.Web.App.Start.StructuremapMvc), "Start")]
 
-namespace Web.App_Start
+namespace Blog.Web.App.Start
 {
     public static class StructuremapMvc
     {

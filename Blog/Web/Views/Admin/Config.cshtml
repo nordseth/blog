@@ -1,0 +1,18 @@
+﻿@model BlogConfigViewModel
+@{
+    ViewBag.Title = "Config";
+}
+<header>
+    <h3>
+        Config</h3>
+</header>
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.EditorForModel()
+    </p>
+    <footer>
+        <button type="submit">
+            Save</button>
+    </footer>
+}

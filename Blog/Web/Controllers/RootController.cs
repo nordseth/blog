@@ -4,13 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Web.Controllers
+namespace Blog.Web.Controllers
 {
-    public class RootController : Controller
+    public class RootController : BaseController
     {
-        //
-        // GET: /Root/
-
         public ActionResult Index()
         {
             return View();

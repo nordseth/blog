@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<article>
+    @RenderBody()</article>
+@section Side {
+    Admin actions
+    <ul>
+        <li>@Html.ActionLink("Config", "Config")</li>
+    </ul>
+}

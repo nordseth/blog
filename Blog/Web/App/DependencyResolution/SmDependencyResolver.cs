@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using StructureMap;
+using Blog.Core;
 
-namespace Web
+namespace Blog.Web.App.DependencyResolution
 {
     public class SmDependencyResolver : IDependencyResolver
     {
-
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IContainer _container;
 
         public SmDependencyResolver(IContainer container)
@@ -21,20 +22,25 @@ namespace Web
             if (serviceType == null) return null;
             try
             {
-                return serviceType.IsAbstract || serviceType.IsInterface
+                var tmp = serviceType.IsAbstract || serviceType.IsInterface
                          ? _container.TryGetInstance(serviceType)
                          : _container.GetInstance(serviceType);
+                Log.DebugFormat("Resolving {0} to {1}", serviceType, tmp ?? "(null)");
+                return tmp;
             }
             catch
             {
-
+                Log.DebugFormat("Error resovling {0}, returning null", serviceType);
                 return null;
             }
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return _container.GetAllInstances(serviceType).Cast<object>();
+            var tmp = _container.GetAllInstances(serviceType).Cast<object>();
+            Log.DebugFormat("Resolving {0} to {1}", serviceType, tmp.ToStringList());
+            return tmp;
         }
+
     }
 }
