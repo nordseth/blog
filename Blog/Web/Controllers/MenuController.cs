@@ -16,6 +16,7 @@ namespace Blog.Web.Controllers
             {
                 new MenuViewModel { Selected = true, Title = "Blog", Url = Url.Action("index","Post")},
                 new MenuViewModel { Selected = false, Title = "Admin", Url = Url.Action("index","Admin")},
+                new MenuViewModel { Selected = false, Title = "Auth", Url = Url.Action("index","Auth")},
             };
             return View(menu);
         }

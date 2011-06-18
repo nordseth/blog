@@ -8,3 +8,5 @@
 *.vssscc
 *.docstates
 Web.Publish.xml
+*.debug.config
+*.release.config

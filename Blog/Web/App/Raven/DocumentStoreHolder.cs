@@ -27,13 +27,13 @@ namespace Blog.Web.App.Raven
         {
             IDocumentStore store;
 
-            if (ConfigurationManager.AppSettings["UserEmbeddedDatabase"].ToLower() == "true")
+            if (AppConfigWrapper.UseEmbeddedDatabase)
             {
-                store = new EmbeddableDocumentStore { DataDirectory = ConfigurationManager.AppSettings["DataPath"] }.Initialize();
+                store = new EmbeddableDocumentStore { DataDirectory = AppConfigWrapper.DataPath }.Initialize();
             }
             else
             {
-                store = new DocumentStore { ConnectionStringName = "RavenDB" }.Initialize();
+                store = new DocumentStore { ConnectionStringName = AppConfigWrapper.RavenDBConnectionString.Name }.Initialize();
             }
 
             //IndexCreation.CreateIndexes(typeof(Tags_Count).Assembly, store);

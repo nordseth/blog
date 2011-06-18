@@ -29,7 +29,7 @@ namespace Blog.Web.Controllers
             ViewBag.BlogConfig = blogConfig.MapTo<BlogConfigViewModel>();
         }
 
-        protected void AddMessage(string message)
+        protected void AddMessage(object message)
         {
             TempData["Message"] = message;
         }

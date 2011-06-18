@@ -71,6 +71,7 @@
     <Reference Include="Lucene.Net">
       <HintPath>..\packages\RavenDB-Embedded.1.0.0.371\lib\net40\Lucene.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -117,6 +118,7 @@
       <HintPath>..\packages\structuremap.2.6.2\lib\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -146,6 +148,7 @@
     <Compile Include="..\AssemblyVersionInfo.cs">
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
+    <Compile Include="App\AppConfigWrapper.cs" />
     <Compile Include="App\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="App\AutoMapper\AutoMapperExtensions.cs" />
     <Compile Include="App\AutoMapper\Profiles\BlogConfigMapperProfile.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="App\Start\Log4NetAdapter.cs" />
     <Compile Include="App\Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -181,6 +185,7 @@
     <Content Include="Content\css\Site.css" />
     <Content Include="crossdomain.xml" />
     <Content Include="favicon.ico" />
+    <Content Include="FederationMetadata\2007-06\FederationMetadata.xml" />
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
     <Content Include="Content\js\dd_belatedpng.js" />
@@ -204,6 +209,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Auth\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\System.Web.Mvc.dll" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.xml" />
     <None Include="_bin_deployableAssemblies\WebMatrix.WebData.dll" />
