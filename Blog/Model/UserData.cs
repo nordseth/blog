@@ -13,6 +13,9 @@ namespace Blog.Model
         }
 
         public string Id { get; set; }
+        public bool Registerd { get; set; }
         public Dictionary<string,string> Options { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
     }
 }

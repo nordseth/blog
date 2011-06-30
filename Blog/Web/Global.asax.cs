@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Blog.Web.App.AutoMapper;
-using Blog.Web.App.Filters;
 using Blog.Web.App;
 using Blog.Core;
 
@@ -27,7 +26,7 @@ namespace Blog.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             //filters.Add(new ElmahHandleErrorAttribute());
-            filters.Add(new RavenActionFilterAttribute());
+            //filters.Add(new RavenActionFilterAttribute());
             filters.Add(new HandleErrorAttribute());
         }
 
@@ -50,45 +49,72 @@ namespace Blog.Web
 
         protected void Application_Error()
         {
+            HandleAppError();
+        }
+
+        private void HandleAppError()
+        {
             var error = Server.GetLastError();
 
+            IController errorController = DependencyResolver.Current.GetService<Blog.Web.Controllers.ErrorController>();
+            var errorUrl = Context.Request.Url.OriginalString;
+            var errorId = GetErrorId();
+
+            var errorRoute = new RouteData();
+            errorRoute.Values.Add("controller", "Error");
+            errorRoute.Values.Add("action", "Http500");
+            errorRoute.Values.Add("errorUrl", errorUrl);
+            errorRoute.Values.Add("exception", error);
+            errorRoute.Values.Add("errorId", errorId);
+
+            RouteData routeData = GetRouteData();
+            errorRoute.Values.Add("errorRouteData", routeData);
+
+            this.Log().ErrorFormat("Handeling error with id {1}{0}url {2}{0}route {3}{0}{4}",
+                Environment.NewLine,
+                errorId,
+                errorUrl,
+                ErrorString(routeData),
+                error
+                );
+
+            try
+            {
+                errorController.Execute(new RequestContext(new HttpContextWrapper(Context), errorRoute));
+                Server.ClearError();
+            }
+            catch
+            {
+                this.Log().ErrorFormat("Failed handeling error with id {0}", errorId);
+            }
+        }
+
+        void WSFederationAuthenticationModule_SessionSecurityTokenCreated(object sender, Microsoft.IdentityModel.Web.SessionSecurityTokenCreatedEventArgs e)
+        {
+            Microsoft.IdentityModel.Web.FederatedAuthentication.SessionAuthenticationModule.IsSessionMode = true;
+        }
+
+        private string GetErrorId()
+        {
+            string errorId = Context.Items[MagicKeys.ErrorId.FullName()] as string;
+            if (errorId == null)
+            {
+                errorId = Guid.NewGuid().ToString();
+                Context.Items[MagicKeys.ErrorId.FullName()] = errorId;
+            }
+            return errorId;
+        }
+
+        private RouteData GetRouteData()
+        {
             var handler = Context.Handler as MvcHandler;
             if (handler != null)
             {
-                IController errorController = DependencyResolver.Current.GetService<Blog.Web.Controllers.ErrorController>();
-                var errorUrl = Context.Request.Url.OriginalString;
-                var routeData = handler.RequestContext.RouteData;
-                var errorId = Guid.NewGuid().ToString();
-
-                var errorRoute = new RouteData();
-                errorRoute.Values.Add("controller", "Error");
-                errorRoute.Values.Add("action", "Http500");
-                errorRoute.Values.Add("errorUrl", errorUrl);
-                errorRoute.Values.Add("errorRouteData", routeData);
-                errorRoute.Values.Add("exception", error);
-                errorRoute.Values.Add("errorId", errorId);
-
-                this.Log().ErrorFormat("Handeling error with id {1}{0}url {2}{0}route {3}{0}{4}",
-                    Environment.NewLine,
-                    errorId,
-                    errorUrl,
-                    ErrorString(routeData),
-                    error
-                    );
-
-                try
-                {
-                    errorController.Execute(new RequestContext(new HttpContextWrapper(Context), errorRoute));
-                    Server.ClearError();
-                }
-                catch
-                {
-                    this.Log().ErrorFormat("Failed handeling error with id {0}", errorId);
-                }
+                return handler.RequestContext.RouteData;
             }
             else
             {
-                this.Log().Error("Not handeling error", error);
+                return null;
             }
         }
 

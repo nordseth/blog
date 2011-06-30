@@ -155,11 +155,18 @@
     <Compile Include="App\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="App\AutoMapper\AutoMapperExtensions.cs" />
     <Compile Include="App\AutoMapper\Profiles\BlogConfigMapperProfile.cs" />
-    <Compile Include="App\DependencyResolution\CustomControllerActivator.cs" />
     <Compile Include="App\DependencyResolution\CustomControllerFactory.cs" />
-    <Compile Include="App\Filters\RavenActionFilterAttribute.cs" />
-    <Compile Include="App\Raven\DocumentStoreHolder.cs" />
+    <Compile Include="App\Keys.cs" />
+    <Compile Include="App\Raven\IRavenSessionFactory.cs" />
+    <Compile Include="App\Raven\IRavenSessionFactoryBuilder.cs" />
+    <Compile Include="App\Raven\RavenSessionFactory.cs" />
+    <Compile Include="App\Raven\RavenSessionFactoryBuilder.cs" />
     <Compile Include="App\RouteConfigurator.cs" />
+    <Compile Include="App\Security\ClaimsTransformer.cs" />
+    <Compile Include="App\Security\Constants.cs" />
+    <Compile Include="App\Security\RegisteredUsersOnly.cs" />
+    <Compile Include="App\Security\TrustedIssuerNameRegistry.cs" />
+    <Compile Include="App\Security\WSFedRequestValidator.cs" />
     <Compile Include="App\Start\Log4Net.cs" />
     <Compile Include="App\Start\Log4NetAdapter.cs" />
     <Compile Include="App\Start\StructuremapMvc.cs" />
@@ -180,11 +187,6 @@
     <Compile Include="ViewModels\MenuViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="apple-touch-icon-114x114-precomposed.png" />
-    <Content Include="apple-touch-icon-57x57-precomposed.png" />
-    <Content Include="apple-touch-icon-72x72-precomposed.png" />
-    <Content Include="apple-touch-icon-precomposed.png" />
-    <Content Include="apple-touch-icon.png" />
     <Content Include="Content\css\Site.css" />
     <Content Include="crossdomain.xml" />
     <Content Include="favicon.ico" />
@@ -233,7 +235,9 @@
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App\Filters\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="log4net.config" />
     <None Include="packages.config" />

@@ -29,7 +29,7 @@ namespace Blog.Web.Controllers
         {
             var userData = new UserData();
             userData.Options.Add("wresult", wresult);
-            Session.Store(userData);
+            DbSession.Store(userData);
 
             AddMessage("thank you for your datas");
 
@@ -41,7 +41,7 @@ namespace Blog.Web.Controllers
             var userData = new UserData();
             foreach (var kv in ErrorDetails ?? new Dictionary<string, string>())
                 userData.Options.Add("ErrorDetails_" + kv.Key, kv.Value);
-            Session.Store(userData);
+            DbSession.Store(userData);
             AddMessage("Error");
 
             return RedirectToAction("Index");
