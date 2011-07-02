@@ -3,7 +3,7 @@
 *.suo
 *.user
 *.cache
-/TestResults
+TestResults/
 *.vspscc
 *.vssscc
 *.docstates
