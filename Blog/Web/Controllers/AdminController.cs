@@ -17,13 +17,7 @@ namespace Blog.Web.Controllers
 
         public ActionResult Config()
         {
-            var blogConfig = DbSession.Load<BlogConfig>("Blog/Config");
-            if (blogConfig == null)
-            {
-                blogConfig = new BlogConfig();
-                blogConfig.Id = "Blog/Config";
-                DbSession.Store(blogConfig);
-            }
+            var blogConfig = BlogConfigRepo.GetConfig();
             return View(blogConfig.MapTo<BlogConfigViewModel>());
         }
 
@@ -33,8 +27,7 @@ namespace Blog.Web.Controllers
         {
 
             var blogConfig = config.MapTo<BlogConfig>();
-            blogConfig.Id = "Blog/Config";
-            DbSession.Store(blogConfig);
+            BlogConfigRepo.UpdateConfig(blogConfig);
 
             AddMessage("blog config saved");
 

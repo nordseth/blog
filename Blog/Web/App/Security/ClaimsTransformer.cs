@@ -23,42 +23,41 @@ namespace Blog.Web.App.Security
                 return base.Authenticate(resourceName, incomingPrincipal);
             }
 
-            using (var dbSession = (System.Web.Mvc.DependencyResolver.Current.GetService(
-                    typeof(Blog.Web.App.Raven.IRavenSessionFactoryBuilder)) as Blog.Web.App.Raven.IRavenSessionFactoryBuilder)
-                    .GetSessionFactory().CreateSession())
+            var userRepo = (System.Web.Mvc.DependencyResolver.Current.GetService(typeof(Blog.Dal.UserRepo)) as Blog.Dal.UserRepo);
+
+            string uniqueId = GetUniqueId(incomingPrincipal);
+
+            // check if user is registered
+            var user = userRepo.GetUserByIdentity(uniqueId);
+            if (user == null)
             {
-                string uniqueId = GetUniqueId(incomingPrincipal);
-
-                // check if user is registered
-                var data = dbSession.Query<UserData>().FirstOrDefault(u => u.Ids.Keys.Any(i => i == uniqueId));
-                if (data == null)
-                {
-                    data = new UserData();
-                    data.Ids.Add(uniqueId, ToSimpleClaim(incomingPrincipal.Identities[0].Claims).ToList());
-                    dbSession.Store(data);
-                }
-                else
-                {
-                    // sync claims
-                }
-                dbSession.SaveChanges();
-
-                //return CreateUserPrincipal(uniqueId, data);
-
-
-                //// authenticated by ACS, but not registered
-                //// create unique id claim
-                //incomingPrincipal.Identities[0].Claims.Add(new Claim(Constants.ClaimTypes.Id, uniqueId));
-                //return incomingPrincipal;
-
-                return base.Authenticate(resourceName, incomingPrincipal);
+                user = new UserData();
+                user.Ids.Add(uniqueId);
+                user.Claims.AddRange(ToSimpleClaim(uniqueId, incomingPrincipal.Identities[0].Claims));
+                userRepo.AddUser(user);
             }
+            else
+            {
+                // sync claims
+            }
+
+            //return CreateUserPrincipal(uniqueId, data);
+
+
+            //// authenticated by ACS, but not registered
+            //// create unique id claim
+            //incomingPrincipal.Identities[0].Claims.Add(new Claim(Constants.ClaimTypes.Id, uniqueId));
+            //return incomingPrincipal;
+
+            return base.Authenticate(resourceName, incomingPrincipal);
+
         }
 
-        private IEnumerable<SimpleClaim> ToSimpleClaim(ClaimCollection claimCollection)
+        private IEnumerable<SimpleClaim> ToSimpleClaim(string id, ClaimCollection claimCollection)
         {
             return claimCollection.Select(c => new SimpleClaim
             {
+                Subject = id,
                 ClaimType = c.ClaimType,
                 Issuer = c.Issuer,
                 Value = c.Value,

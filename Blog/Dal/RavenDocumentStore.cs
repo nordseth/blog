@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Raven.Client.Document;
+using System.Text;
 using Raven.Client;
 using Raven.Client.Embedded;
+using Raven.Client.Document;
 
-namespace Blog.Web.App.Raven
+namespace Blog.Dal
 {
-    public class RavenSessionFactoryBuilder : IRavenSessionFactoryBuilder
+    public static class RavenDocumentStore
     {
-        private IRavenSessionFactory _ravenSessionFactory;
+        private static IDocumentStore _store;
 
-        public IRavenSessionFactory GetSessionFactory()
+        public static IDocumentSession OpenSession()
         {
-            return _ravenSessionFactory ?? (_ravenSessionFactory = CreateSessionFactory());
-        }
-
-        private static IRavenSessionFactory CreateSessionFactory()
-        {
-            return new RavenSessionFactory(CreateDocumentStore());
+            return (_store ?? (_store = CreateDocumentStore())).OpenSession();
         }
 
         private static IDocumentStore CreateDocumentStore()
@@ -35,7 +30,7 @@ namespace Blog.Web.App.Raven
                 store = new DocumentStore { ConnectionStringName = AppConfigWrapper.RavenDBConnectionString.Name }.Initialize();
             }
 
-            //IndexCreation.CreateIndexes(typeof(Tags_Count).Assembly, store);
+            Raven.Client.Indexes.IndexCreation.CreateIndexes(typeof(RavenDocumentStore).Assembly, store);
 
             return store;
         }

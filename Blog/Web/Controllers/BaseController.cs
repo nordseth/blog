@@ -12,22 +12,15 @@ namespace Blog.Web.Controllers
 {
     public abstract class BaseController : Controller
     {
-        public IDocumentSession DbSession { get; set; }
+        public Blog.Dal.BlogConfigRepo BlogConfigRepo { get; set; }
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             if (!filterContext.IsChildAction)
             {
-                var blogConfig = DbSession.Load<BlogConfig>("Blog/Config");
-                if (blogConfig == null)
-                {
-                    blogConfig = new BlogConfig();
-                    blogConfig.Id = "Blog/Config";
-                    DbSession.Store(blogConfig);
-                }
+                var blogConfig = BlogConfigRepo.GetConfig();
                 ViewBag.BlogConfig = blogConfig.MapTo<BlogConfigViewModel>();
             }
-            DbSession.SaveChanges();
         }
 
         protected void AddMessage(object message)

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{CAEF72B9-8A2C-4234-8B67-07373BBBC576}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dal", "Dal\Dal.csproj", "{E4C7B5C2-8B4E-4D08-BD68-F18D708DCC0D}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Blog.vsmdi
@@ -42,6 +44,10 @@ Global
 		{CAEF72B9-8A2C-4234-8B67-07373BBBC576}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAEF72B9-8A2C-4234-8B67-07373BBBC576}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAEF72B9-8A2C-4234-8B67-07373BBBC576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4C7B5C2-8B4E-4D08-BD68-F18D708DCC0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4C7B5C2-8B4E-4D08-BD68-F18D708DCC0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4C7B5C2-8B4E-4D08-BD68-F18D708DCC0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4C7B5C2-8B4E-4D08-BD68-F18D708DCC0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

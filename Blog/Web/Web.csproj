@@ -164,10 +164,7 @@
     <Compile Include="App\AutoMapper\Profiles\BlogConfigMapperProfile.cs" />
     <Compile Include="App\DependencyResolution\CustomControllerFactory.cs" />
     <Compile Include="App\Keys.cs" />
-    <Compile Include="App\Raven\IRavenSessionFactory.cs" />
-    <Compile Include="App\Raven\IRavenSessionFactoryBuilder.cs" />
     <Compile Include="App\Raven\RavenSessionFactory.cs" />
-    <Compile Include="App\Raven\RavenSessionFactoryBuilder.cs" />
     <Compile Include="App\RouteConfigurator.cs" />
     <Compile Include="App\Security\ClaimsTransformer.cs" />
     <Compile Include="App\Security\Constants.cs" />
@@ -263,6 +260,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{D7827FA1-C39B-47F3-9E62-D10177A6C4A9}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dal\Dal.csproj">
+      <Project>{E4C7B5C2-8B4E-4D08-BD68-F18D708DCC0D}</Project>
+      <Name>Dal</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{41B2DB49-90B1-45F2-9266-1D584F857C8A}</Project>

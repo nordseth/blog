@@ -54,6 +54,9 @@ namespace Blog.Web
 
         protected void Application_EndRequest()
         {
+            var dbSession = (Raven.Client.IDocumentSession)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(Raven.Client.IDocumentSession));
+            dbSession.SaveChanges();
+
             new StructureMap.Pipeline.HybridLifecycle().FindCache().DisposeAndClear();
         }
 

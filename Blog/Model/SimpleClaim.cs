@@ -7,6 +7,7 @@ namespace Blog.Model
 {
     public class SimpleClaim
     {
+        public string Subject { get; set; }
         public string ClaimType { get; set; }
         public string Value { get; set; }
         public string Issuer { get; set; }
