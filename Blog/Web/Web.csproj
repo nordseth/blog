@@ -65,6 +65,9 @@
     <Reference Include="Glimpse.Core, Version=0.83.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Glimpse.0.83\lib\net40\Glimpse.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.Mvc3">
+      <HintPath>..\packages\Glimpse.Mvc3.0.83\lib\net40\Glimpse.Mvc3.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.NRefactory, Version=3.0.0.3800, Culture=neutral, PublicKeyToken=efe927acf176eea2, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB-Embedded.1.0.0.397\lib\net40\ICSharpCode.NRefactory.dll</HintPath>
     </Reference>
@@ -191,11 +194,8 @@
     <Compile Include="ViewModels\MenuViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Content\css\Site.css" />
-    <Content Include="crossdomain.xml" />
     <Content Include="favicon.ico" />
-    <Content Include="FederationMetadata\2007-06\FederationMetadata.xml" />
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
     <Content Include="Content\js\dd_belatedpng.js" />
