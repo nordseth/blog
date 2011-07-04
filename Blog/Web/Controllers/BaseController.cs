@@ -16,18 +16,17 @@ namespace Blog.Web.Controllers
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (filterContext.IsChildAction)
-                return;
-
-            var blogConfig = DbSession.Load<BlogConfig>("Blog/Config");
-            if (blogConfig == null)
+            if (!filterContext.IsChildAction)
             {
-                blogConfig = new BlogConfig();
-                blogConfig.Id = "Blog/Config";
-                DbSession.Store(blogConfig);
+                var blogConfig = DbSession.Load<BlogConfig>("Blog/Config");
+                if (blogConfig == null)
+                {
+                    blogConfig = new BlogConfig();
+                    blogConfig.Id = "Blog/Config";
+                    DbSession.Store(blogConfig);
+                }
+                ViewBag.BlogConfig = blogConfig.MapTo<BlogConfigViewModel>();
             }
-            ViewBag.BlogConfig = blogConfig.MapTo<BlogConfigViewModel>();
-
             DbSession.SaveChanges();
         }
 

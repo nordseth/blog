@@ -52,6 +52,11 @@ namespace Blog.Web
             HandleAppError();
         }
 
+        protected void Application_EndRequest()
+        {
+            new StructureMap.Pipeline.HybridLifecycle().FindCache().DisposeAndClear();
+        }
+
         private void HandleAppError()
         {
             var error = Server.GetLastError();
