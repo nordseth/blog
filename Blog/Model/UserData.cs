@@ -10,7 +10,7 @@ namespace Blog.Model
         public UserData()
         {
             Options = new Dictionary<string, string>();
-            Ids = new List<string>();
+            IdentityIds = new List<string>();
             Claims = new List<SimpleClaim>();
         }
 
@@ -19,7 +19,7 @@ namespace Blog.Model
         public Dictionary<string, string> Options { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public List<string> Ids { get; set; }
+        public List<string> IdentityIds { get; set; }
         public List<SimpleClaim> Claims { get; set; }
     }
 }

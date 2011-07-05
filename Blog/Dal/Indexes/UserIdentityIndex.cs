@@ -16,7 +16,7 @@ namespace Dal.Indexes
             return new IndexDefinitionBuilder<UserData>
             {
                 Map = users => from u in users
-                               from id in u.Ids
+                               from id in u.IdentityIds
                                select new { id },
             }.ToIndexDefinition(Conventions);
         }

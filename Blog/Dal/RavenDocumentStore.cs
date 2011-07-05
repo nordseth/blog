@@ -14,7 +14,7 @@ namespace Blog.Dal
 
         public static IDocumentSession OpenSession()
         {
-            return (_store ?? (_store = CreateDocumentStore())).OpenSession();
+            return (_store ?? (_store = CreateDocumentStore().Initialize())).OpenSession();
         }
 
         private static IDocumentStore CreateDocumentStore()

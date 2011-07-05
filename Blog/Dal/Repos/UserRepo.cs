@@ -21,25 +21,50 @@ namespace Blog.Dal
 
         public IDocumentSession Session { get; set; }
 
-        public UserData GetUserByIdentity(string identity)
+        public UserData LoadUser(string userId)
         {
-            return Session.Query<UserData>().FirstOrDefault(u => u.Ids.Any(i => i == identity));
-            //return Session.Advanced.LuceneQuery<UserData>("UserIdentityIndex").WaitForNonStaleResultsAsOfNow().Where(identity).FirstOrDefault();
+            return Session.Load<UserData>(userId);
         }
 
-        public UserData GetUserById(string id)
+        public UserData CreateUser(string identity)
         {
-            return Session.Load<UserData>(id);
-        }
-
-        public void AddUser(UserData user)
-        {
+            var user = new UserData();
+            var id = new Identity { Id = "Identities/" + identity };
+            user.IdentityIds.Add("Identities/" + identity);
             Session.Store(user);
+            id.UserId = user.Id;
+            Session.Store(id);
+            return user;
+        }
+
+        public void AddIdentityToUser(UserData user, string identity)
+        {
+            user.IdentityIds.Add("Identities/" + identity);
+            Session.Store(new Identity { Id = "Identities/" + identity, UserId = user.Id });
         }
 
         public void DeleteUser(UserData user)
         {
+            foreach (var i in user.IdentityIds)
+                Session.Delete(Session.Load<Identity>( i));
             Session.Delete(user);
+        }
+
+        public void RemoveIdentityFromUser(UserData user, string identity)
+        {
+            //var userTmp = LoadUser(user.Id);
+            //userTmp.IdentityIds.Remove(identity);
+            user.IdentityIds.Remove("Identities/" + identity);
+            Session.Delete(Session.Load<Identity>("Identities/" + identity));
+        }
+
+        public UserData GetUserByIdentity(string identity)
+        {
+            var tmp = Session.Load<Identity>("Identities/" + identity);
+            if (tmp != null)
+                return LoadUser(tmp.UserId);
+            else
+                return null;
         }
     }
 }

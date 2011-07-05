@@ -31,10 +31,8 @@ namespace Blog.Web.App.Security
             var user = userRepo.GetUserByIdentity(uniqueId);
             if (user == null)
             {
-                user = new UserData();
-                user.Ids.Add(uniqueId);
-                user.Claims.AddRange(ToSimpleClaim(uniqueId, incomingPrincipal.Identities[0].Claims));
-                userRepo.AddUser(user);
+                //user = userRepo.CreateUser(uniqueId);
+                //user.Claims.AddRange(ToSimpleClaim(uniqueId, incomingPrincipal.Identities[0].Claims));
             }
             else
             {
