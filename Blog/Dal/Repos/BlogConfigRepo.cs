@@ -9,33 +9,29 @@ namespace Blog.Dal
 {
     public class BlogConfigRepo
     {
-        public BlogConfigRepo()
-        {
-        }
-
-        public BlogConfigRepo(IDocumentSession session)
-        {
-            Session = session;
-        }
-
-        public IDocumentSession Session { get; set; }
-
         public BlogConfig GetConfig()
         {
-            var blogConfig = Session.Load<BlogConfig>("Blog/Config");
-            if (blogConfig == null)
+            using (var session = RavenDocumentStore.OpenSession())
             {
-                blogConfig = new BlogConfig();
-                blogConfig.Id = "Blog/Config";
-                Session.Store(blogConfig);
+                var blogConfig = session.Load<BlogConfig>("Blog/Config");
+                if (blogConfig == null)
+                {
+                    blogConfig = new BlogConfig();
+                    blogConfig.Id = "Blog/Config";
+                    session.Store(blogConfig);
+                    session.SaveChanges();
+                }
+                return blogConfig;
             }
-            return blogConfig;
         }
 
         public void UpdateConfig(BlogConfig blogConfig)
         {
-            blogConfig.Id = "Blog/Config";
-            Session.Store(blogConfig);
+            using (var session = RavenDocumentStore.OpenSession())
+            {
+                blogConfig.Id = "Blog/Config";
+                session.Store(blogConfig);
+            }
         }
     }
 }

@@ -19,11 +19,12 @@ namespace Blog.Web.App.DependencyResolution
 
                 x.For<System.Web.Mvc.IControllerFactory>().Use<CustomControllerFactory>();
 
-                x.For<global::Raven.Client.IDocumentSession>().HybridHttpOrThreadLocalScoped()
-                    .Use(() => Dal.RavenDocumentStore.OpenSession());
+                //x.For<global::Raven.Client.IDocumentSession>().HybridHttpOrThreadLocalScoped()
+                //    .Use(() => Dal.RavenDocumentStore.OpenSession());
 
-                x.FillAllPropertiesOfType<global::Raven.Client.IDocumentSession>();
+                //x.FillAllPropertiesOfType<global::Raven.Client.IDocumentSession>();
                 x.FillAllPropertiesOfType<Blog.Dal.BlogConfigRepo>();
+                x.FillAllPropertiesOfType<Blog.Dal.UserRepo>();
             });
 
             ObjectFactory.AssertConfigurationIsValid();
