@@ -99,6 +99,16 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Concepts\Address.cs" />
+    <Compile Include="Concepts\ConceptTest.cs" />
+    <Compile Include="Concepts\Contract.cs" />
+    <Compile Include="Concepts\Customer.cs" />
+    <Compile Include="Concepts\Product.cs" />
+    <Compile Include="Concepts\Infra\DenormalizedReference.cs" />
+    <Compile Include="Concepts\Infra\INamedDocument.cs" />
+    <Compile Include="Concepts\Order.cs" />
+    <Compile Include="Concepts\Person.cs" />
+    <Compile Include="Concepts\PriceType.cs" />
     <Compile Include="EncryptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RavenUserData.cs" />
@@ -123,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Concepts\ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
